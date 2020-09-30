@@ -50,6 +50,7 @@ def validate_email(email_address: str, *args, **kwargs):
     try:
         return validate_email_or_fail(email_address, *args, **kwargs)
     except EmailValidationError as error:
-        message = f'Validation for {email_address!r} failed: {error}'
-        LOGGER.warning(msg=message)
+        if kwargs['debug']:
+            message = f'Validation for {email_address!r} failed: {error}'
+            LOGGER.warning(msg=message)
         return False
